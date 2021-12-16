@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/editor.css">
+    <title>Meme Generator</title>
+</head>
+<body onload="init()">
+    <header class="header">
+        <nav class="main-nav container">
+            <img class="logo" src="img/buttons/logo.png">
+            <ul class="nav">
+                <li class="nav-gallery active" onclick="renderGallery()">Gallery</li>
+                <li class="nav-about">About</li>
+            </ul>
+            </nav>
+    </header>
+
+    <section class="gallery">
+        <div class="search">search area</div>
+
+        <div class="grid-container">
+        </div>
+    </section>
+
+    <section class="editor">
+    <div class="editor-container" >
+        
+        <div class="canvas-container">
+            <canvas
+				id="my-canvas"
+				height="400"
+				width="400"
+			></canvas>
+        </div>
+        <div class="drow-section">
+
+            <div class="line1">
+                <div class = "txt-box">
+                    <input class="txt-input" type="text" id="item" placeholder="Add new text here">
+                </div>
+            </div>
+
+            <div class="line2">
+                <button class=" btn change-line-btn"><img class="btn-img" src="img/buttons/switch.png" onclick="onSwichLines()"></button>
+                <button class="btn add-line-btn"><img class="btn-img" src="img/buttons/add.png" onclick="onAddTxtLine()"></button>
+                <button class="btn clear-line-btn"><img class="btn-img" src="img/buttons/clear.png" onclick="onClearTxtLine(this)"></button>
+            </div>
+            
+
+            <div class="line3">
+                <button class="btn increse-font"><img class="btn-img" src="img/buttons/increase-font.png" onclick="increseFontSize()"></button>
+                <button class="btn increse-font"><img class="btn-img" src="img/buttons/decrease-font.png" onclick="decreseFontSize()"></button>
+                <button class="btn align"><img class="btn-img" src="img/buttons/align-to-left.png" onclick="align(left)"></button>
+                <button class="btn align"><img class="btn-img" src="img/buttons/center-text.png" onclick="align(center)"></button>
+                <button class="btn align"><img class="btn-img" src="img/buttons/align-to-right.png" onclick="align(right)"></button>
+            </div>
+
+            <div class="line4">
+                <select name="fonts" id="fonts" onchange="onChangeFont()">
+                    <option value="impact">Impact</option>
+                    <option value="cursive">Cursize</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="fantasy">Fantasy</option>
+                    <option value="monospace">Monospace</option>
+                </select>
+                <button class="btn color">
+                    A
+                    <input type="color" id="color" name="color" value= "#e5e5e5" onchange="onColorChange(this.value)"/>
+                </button>
+                <button class="btn fill-color">
+                    <img class="btn-img color" src="img/buttons/color.png">
+                    <input type="color" id="color" name="color" value= "#e5e5e5" onchange="onFillColorChange(this.value)"/>
+                </button>
+            </div>
+            <div class="line5">
+                <h3>emoji container</h3>
+            </div>
+
+            <button class="btn-share">share</button>
+        </div>
+    </div>
+    </section>
+    <script src="js/gallery.controller.js"></script>
+    <script src="js/meme.controller.js"></script>
+    <script src="js/meme.service.js"></script>
+</body>
+</html>
