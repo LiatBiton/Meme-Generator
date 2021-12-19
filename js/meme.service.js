@@ -1,28 +1,42 @@
 'use strict'
 
-var gMeme = {
-    selectedImgId: 1,
-    selectedLineIdx: 0,
 
-    lines: [
-        {
-            txt: 'I sometimes eat Falafel',
-            font: 'impact',
-            fontSize: 40,
-            align: 'left',
-            color: 'black',
-            fillColor: 'white',
-            posX: 10,
-            posY: 50
+const STORAGE_KEY = 'MemesDB';
+var gSavedMems = []
 
-        }
-    ]
+var gCurrLineIdx = 0
+
+function getDefaultLine() {
+    return {
+        isDrag: false,
+        id: 0,
+        txt: '',
+        type: 'line',
+        font: 'impact',
+        size: 30,
+        align: 'center' ,
+        color: '#000000',
+        fillColor: '#ffffff',
+        posX: 200,
+        posY: 50
+    }
 }
+
+var gCurrElement = getDefaultLine();
+var gMeme = {}
 
 function onImgSelect(ev){
     console.log(ev)
     console.log(ev.path[1].classList[1])
     gMeme.selectedImgId = ev.path[1].classList[1]
+    document.querySelector('.btn-save').style.background = '#ff7f00'
+    document.querySelector('.btn-create').style.display = 'none'
+    document.querySelector('.btn-save').disabled = false
+    delete gMeme.emojis
+    gCurrLineIdx = 0
+    var line = getDefaultLine()
+    gCurrElement = line
+    gMeme.lines = [line]
     renderMeme()
     renderCanvas()
 }
@@ -32,60 +46,91 @@ function getMeme(){
     return memeIdx
 }
 
+function getCurrLine() {
+    if (gCurrElement.type != "line") return {}
+
+    return gMeme.lines.find((curr) => curr.id === gCurrElement.id) || {}
+}
+
 function setLineTxt(){
-    var txtInput = document.getElementById('item').value
-    gMeme.lines[0].txt = txtInput
+    getCurrLine().txt = document.getElementById('item').value
     renderMeme()
 }
 
 function onColorChange(pickedColor){
-    gMeme.lines[0].color = document.getElementById('color').value
+    getCurrLine().color = pickedColor
     renderMeme()
-
 }
 
 function onFillColorChange(pickedColor){
-    gMeme.lines[0].fillColor = document.getElementById('fill-color').value
-    renderMeme()
-
-}
-
-function onChangeFont(pickedfont){
-    gMeme.lines[0].font = document.getElementById('fonts').value
+    getCurrLine().fillColor = pickedColor
     renderMeme()
 }
 
-function increseFontSize(){
-    gMeme.lines[0].fontSize ++
-    renderMeme()    
+function onChangeFont(){
+    getCurrLine().font = document.getElementById('fonts').value
+    renderMeme()
 }
 
-function decreseFontSize(){
-    gMeme.lines[0].fontSize --
-    renderMeme()    
+function increseSize(){
+    var incBy = gCurrElement.type === "line" ? 1 : 10
+    gCurrElement.size += incBy
+    renderMeme()
 }
 
-function onClearTxtLine(ev){
-    console.log('clearText' , ev)
+function decreseSize(){
+    var decBy = gCurrElement.type === "line" ? 1 : 10
+    gCurrElement.size -= decBy
+    renderMeme()  
+}
+
+function onClearTxtLine(){
+    if (gCurrElement.type === 'line'){
+        var gCurrIdx = gMeme.lines.findIndex(l => l.id === gCurrElement.id)
+        gMeme.lines.splice(gCurrIdx)
+    }else if (gCurrElement.type === "emoji") {
+        var gCurrIdx = gMeme.emojis.findIndex(e => e.id === gCurrElement.id)
+        gMeme.emojis.splice(gCurrIdx)
+    }
+    gCurrElement = null
+    renderMeme()
+}
+
+function onAlign(side){
+    getCurrLine().align = side
+    renderMeme()
 }
 
 function onAddTxtLine(){
     var newLine = {
-        txt: 'write your text here',
+        id: gMeme.lines.length,
+        isDrag: false,
+        txt: '',
         font: 'impact',
-        fontSize: 40,
-        align: 'left',
-        color: 'black',
-        fillColor: 'white',
-        posX: 10,
-        posY: 370
+        type: 'line',
+        size: 30,
+        align: 'center',
+        color: '#000000',
+        fillColor: '#ffffff'
     }
+    if(gMeme.lines.length === 0) {
+        newLine.posX = 200
+        newLine.posY = 50
+    } else if(gMeme.lines.length === 1) {
+        newLine.posX = 200
+        newLine.posY = 370
+    } else {
+        newLine.posX = 200
+        newLine.posY = 210
+    }
+    gCurrLineIdx = newLine.id
+    document.getElementById('item').value = ""
+    gCurrElement = newLine
     gMeme.lines.push(newLine)
     renderMeme()
 }
 
 function onSwichLines(){
-    console.log('before',gMeme)
     var posX1 = gMeme.lines[0].posX
     var posY1 = gMeme.lines[0].posY
 
@@ -95,11 +140,41 @@ function onSwichLines(){
     gMeme.lines[1].posY = posY1
 
     renderCanvas()
-    renderMeme()
-
-    
+    renderMeme()   
 }
 
-// function onSwichLines(){
-//     console.log('onswitchlines')
-// }
+
+function onSave(){
+    document.querySelector('.btn-save').disabled = true
+    document.querySelector('.btn-save').style.background = 'silver'
+    document.querySelector('.btn-create').style.display = 'block'
+    gCurrLineIdx = ''
+    renderMeme()
+    var mime = gElCanvas.toDataURL('image/png');
+    gSavedMems.unshift(mime)
+    saveToStorage(STORAGE_KEY, gSavedMems)
+}
+
+
+function addEmoji(event){
+    var url = event.path[0].attributes[1].nodeValue
+    var newEmoji = {
+        id: gMeme.emojis?.length || 0,
+        url: url , 
+        posX: 100, 
+        posY: 100, 
+        size: 100,
+        isDrag: false,
+        type: 'emoji'
+    }
+    gCurrElement = newEmoji
+
+    if(gMeme.emojis ===  undefined){
+        gMeme.emojis = [newEmoji]
+
+    }else{
+        gMeme.emojis.push(newEmoji)
+    }
+    renderMeme()
+}
+

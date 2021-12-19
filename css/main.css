@@ -1,17 +1,17 @@
 *{
     box-sizing: border-box;
+    margin: 0px;
     outline: none;
-    font-family: Pacifico, sans-serif;
+    /* font-family: Pacifico, sans-serif; */
     font-family: Montserrat, sans-serif;
-    font-family: 'Baloo Bhaijaan 2', cursive;
+    /* font-family: 'Baloo Bhaijaan 2', cursive; */
 }
 
-.gallery{
-    height:100vh;
-}
+
 
 .logo{
-    width: 133px;
+    width: 19%;
+    height: 3.5vh;
 }
 
 
@@ -19,9 +19,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 66px;
+    height: 7.5vh;
     background-color: #ff7f00;
     margin: 0;
+}
+
+.nav-about{
+    cursor: pointer;
 }
 
 .container{
@@ -45,10 +49,12 @@ li{
     font-size: 1.1875rem; 
     display: list-item;
     text-align: -webkit-match-parent;
+    cursor: pointer;
 }
 
 li.active{
     color: white;
+    background-color: #ff9800;
     cursor: pointer;
     box-shadow: -1px 0px 20px 13px #ff9800;
 }
@@ -62,11 +68,11 @@ li.active{
     min-width: 100%;
     min-height: 100%;
     display: grid;
-    grid-template-rows: repeat(auto-fill, minmax(320px, 1fr));
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     text-align: center;
-    /* gap: 5px 5px; */
     background-color: silver;
+    margin-bottom: 10px;
     
 }
 
@@ -76,12 +82,80 @@ li.active{
 }
 
 .img-pic{
-    width: 320px;
-    height: 320px;
+    width: 95%;
+    height: 90%;
     border-radius: 10px;
-    margin-top: 20px;
+    margin-top: 2vh;
     cursor: pointer;
 }
 
+.about{
+    display: flex;
+    width: 100%;
+    height: 60vh;
+    align-items: center;
+    justify-content: space-around;
+    justify-content: center;
+    
+    
+}
 
+.about-txt-box{
+    display: flex;
+    width: 50%;
+    height: 45px;
+    border-radius: 6px;
+    background-color: #fff;
+    align-items: flex-start;
+    flex-direction: column;
+    font-size: 20px;
+    margin: 30px;
+    font-family: 'Baloo Bhaijaan 2', cursive;
+    
+}
+
+.bold{
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: bold;
+    font-family: 'Baloo Bhaijaan 2', cursive;
+    font-family: 'IBM Plex Sans', sans-serif;
+
+}
+
+.alina-pic{
+    position: relative;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+
+
+@media only screen and (max-width:768px){
+    .grid-container{
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    .logo{
+        width: 28%;
+        height: 2.5vh;
+    }
+    .about{
+        height: 80vh;
+        flex-direction: column;
+        justify-content: space-evenly
+    }
+
+
+    .about-txt-box{
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        height: 30vh;
+        font-size: 15px;
+        margin: 0px;
+    }
+
+}
 

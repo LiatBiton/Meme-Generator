@@ -7,8 +7,9 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500&family=Montserrat:wght@100&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/editor.css">
+    <link rel="stylesheet" href="css/savedMemes.css">
     <title>Meme Generator</title>
 </head>
 <body onload="init()">
@@ -16,79 +17,122 @@
         <nav class="main-nav container">
             <img class="logo" src="img/buttons/logo.png">
             <ul class="nav">
-                <li class="nav-gallery active" onclick="renderGallery()">Gallery</li>
+                <li class="nav-gallery" onclick="showGallery()">Gallery</li>
                 <li class="nav-about">About</li>
+                <li class="nav-memes" onclick="renderMemes()">Memes</li>
             </ul>
+           
             </nav>
     </header>
+    <!-- <div class="search"><h1>choose your Meme</h1></div> -->
+    <section class="gallery"> 
+        <div class="search-area">
+            <label for="imgfilter">filter:</label>
+            <input list="filter" id="imgfilter" name="imgfilter" onchange="onSelectFilter(this.value)"/>
 
-    <section class="gallery">
-        <div class="search">search area</div>
-
-        <div class="grid-container">
+            <datalist id="filter" >
+                <option value="Funny">
+                <option value="Celebrity">
+                <option value="Cute">
+                <option value="Afraid"></option>
+                <option value="Serious"></option>
+            </datalist>
         </div>
+        <div class="grid-container"></div>
+        <div class="about">
+            <img class="alina-pic" src="img/buttons/alina.png">
+            <div class="about-txt-box">
+                <span class="bold">Monica Geller</span>
+                is a fictional character, one of the six main characters who appears on the American sitcom Friends (1994–2004). Created by David Crane and Marta Kauffman
+            </div>
+        </div>  
+             
     </section>
 
     <section class="editor">
-    <div class="editor-container" >
+        <div class="editor-container" >
         
-        <div class="canvas-container">
-            <canvas
-				id="my-canvas"
-				height="400"
-				width="400"
-			></canvas>
-        </div>
-        <div class="drow-section">
+            <div class="canvas-container">
+                <canvas
+                    id="my-canvas"
+                    height="400"
+                    width="400"
+                    onclick="canvasClicked(event)"
+			    ></canvas>
+            </div>
 
-            <div class="line1">
-                <div class = "txt-box">
-                    <input class="txt-input" type="text" id="item" placeholder="Add new text here">
+            <div class="drow-section">
+                <div class="line1">
+                    <div class = "txt-box">
+                        <input class="txt-input" type="text" id="item" placeholder="Add new text here" oninput="setLineTxt(this.value)">
+                    </div>
                 </div>
-            </div>
 
-            <div class="line2">
-                <button class=" btn change-line-btn"><img class="btn-img" src="img/buttons/switch.png" onclick="onSwichLines()"></button>
-                <button class="btn add-line-btn"><img class="btn-img" src="img/buttons/add.png" onclick="onAddTxtLine()"></button>
-                <button class="btn clear-line-btn"><img class="btn-img" src="img/buttons/clear.png" onclick="onClearTxtLine(this)"></button>
-            </div>
+                <div class="line2">
+                    <button class=" btn change-line-btn"><img class="btn-img" src="img/buttons/switch.png" onclick="onSwichLines()"></button>
+                    <button class="btn add-line-btn"><img class="btn-img" src="img/buttons/add.png" onclick="onAddTxtLine()"></button>
+                    <button class="btn clear-line-btn"><img class="btn-img" src="img/buttons/clear.png" onclick="onClearTxtLine()"></button>
+                </div>
             
 
-            <div class="line3">
-                <button class="btn increse-font"><img class="btn-img" src="img/buttons/increase-font.png" onclick="increseFontSize()"></button>
-                <button class="btn increse-font"><img class="btn-img" src="img/buttons/decrease-font.png" onclick="decreseFontSize()"></button>
-                <button class="btn align"><img class="btn-img" src="img/buttons/align-to-left.png" onclick="align(left)"></button>
-                <button class="btn align"><img class="btn-img" src="img/buttons/center-text.png" onclick="align(center)"></button>
-                <button class="btn align"><img class="btn-img" src="img/buttons/align-to-right.png" onclick="align(right)"></button>
-            </div>
+                <div class="line3">
+                    <button class="btn increse-font"><img class="btn-img" src="img/buttons/increase-font.png" onclick="increseSize()"></button>
+                    <button class="btn increse-font"><img class="btn-img" src="img/buttons/decrease-font.png" onclick="decreseSize()"></button>
+                    <button class="btn align" name="right"><img class="btn-img" src="img/buttons/align-to-left.png" onclick="onAlign(event.path[1].name)"></button>
+                    <button class="btn align" name="center"><img class="btn-img" src="img/buttons/center-text.png" onclick="onAlign(event.path[1].name)"></button>
+                    <button class="btn align" name="left"><img class="btn-img" src="img/buttons/align-to-right.png" onclick="onAlign(event.path[1].name)"></button>
+                </div>
 
-            <div class="line4">
-                <select name="fonts" id="fonts" onchange="onChangeFont()">
-                    <option value="impact">Impact</option>
-                    <option value="cursive">Cursize</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="fantasy">Fantasy</option>
-                    <option value="monospace">Monospace</option>
-                </select>
-                <button class="btn color">
-                    A
-                    <input type="color" id="color" name="color" value= "#e5e5e5" onchange="onColorChange(this.value)"/>
-                </button>
-                <button class="btn fill-color">
-                    <img class="btn-img color" src="img/buttons/color.png">
-                    <input type="color" id="color" name="color" value= "#e5e5e5" onchange="onFillColorChange(this.value)"/>
-                </button>
-            </div>
-            <div class="line5">
-                <h3>emoji container</h3>
-            </div>
+                <div class="line4">
+                    <select name="fonts" id="fonts" onchange="onChangeFont()">
+                        <option value="impact">Impact</option>
+                        <option value="cursive">Cursize</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="monospace">Monospace</option>
+                    </select>
+                    <button class="btn color">
+                        A
+                        <input type="color" class="border-color" id="color" name="color" value= "black" onchange="onColorChange(this.value)"/>
+                    </button>
+                    <button class="btn color">
+                        <img class="btn-img color" src="img/buttons/color.png">
+                        <input type="color" class="fill-color" id="color" name="color" value= "#ffffff" onchange="onFillColorChange(this.value)"/>
+                    </button>
+                </div>
 
-            <button class="btn-share">share</button>
+                <div class="line5">
+                    <div class="emojis-container">
+                        <span><</span>
+                        <img class="emoj" src="img/emojis/e1.png" onclick="addEmoji(event)">
+                        <img class="emoj" src="img/emojis/e2.png" onclick="addEmoji(event)">
+                        <img class="emoj" src="img/emojis/e3.png" onclick="addEmoji(event)">
+                        <span>></span>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="btn-editor btn-create" onclick="showGallery()">create new meme</button>
+                    <button class="btn-editor btn-save" onclick="onSave()">save</button>
+                </div>
+            </div>
         </div>
-    </div>
     </section>
+
+    <section class="memes">
+        <div class="memes-container">
+        </div>
+    </section>
+
+    <footer class="footer">
+        <img class="logo" src="img/buttons/logo.png">
+        <h4 class="copyrights">all rights reserved 2019</h4>
+    </footer>
+
     <script src="js/gallery.controller.js"></script>
     <script src="js/meme.controller.js"></script>
     <script src="js/meme.service.js"></script>
+    <script src="js/storageService.js"></script>
+    <script src="js/savedMemes.controller.js"></script>
+    <script src="js/gallery.service.js"></script>
 </body>
 </html>
