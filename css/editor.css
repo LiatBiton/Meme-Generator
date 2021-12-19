@@ -220,10 +220,15 @@ span{
     cursor: pointer;
 }
 
+.btn-save{
+    height: 45px;
+    width: fit-content;
+}
+
 @media only screen and (max-width:768px){
     .editor-container{
         flex-direction: column;
-        height: 110vh;
+        height: 120vh;
         justify-content: flex-start
     }
     #my-canvas{
@@ -231,4 +236,5 @@ span{
         width: 100%;
         height: 95%; 
     }
+    
 }
