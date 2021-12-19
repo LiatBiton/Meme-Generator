@@ -130,6 +130,37 @@ li.active{
     border-radius: 50%;
 }
 
+.search-area{
+    width: 60%;
+    height: 100%;
+    /* margin-top: 3%; */
+    border-radius: 6px;
+    background-color: #fff;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: bold;
+    font-family: 'Baloo Bhaijaan 2', cursive;
+    font-family: 'IBM Plex Sans', sans-serif;
+
+}
+
+label{
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: bold;
+    font-family: 'Baloo Bhaijaan 2', cursive;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+.input#imgfilter{
+    width: 45px;
+    height: 45px;
+    margin: 4.5px 9.5px 0 39.5px;
+    padding: 5.3px 5px 5.3px 5.5px;
+    border-radius: 6px;
+    background-color: #fff;
+    border: 0px;
+    cursor: pointer;
+}
+
 
 
 @media only screen and (max-width:768px){
