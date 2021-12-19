@@ -87,10 +87,12 @@ function decreseSize(){
 function onClearTxtLine(){
     if (gCurrElement.type === 'line'){
         var gCurrIdx = gMeme.lines.findIndex(l => l.id === gCurrElement.id)
-        gMeme.lines.splice(gCurrIdx)
+        gMeme.lines.splice(gCurrIdx, 1)
     }else if (gCurrElement.type === "emoji") {
         var gCurrIdx = gMeme.emojis.findIndex(e => e.id === gCurrElement.id)
-        gMeme.emojis.splice(gCurrIdx)
+        gMeme.emojis.splice(gCurrIdx, 1)
+    } else {
+        return
     }
     gCurrElement = null
     renderMeme()
