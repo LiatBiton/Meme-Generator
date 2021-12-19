@@ -1,0 +1,241 @@
+
+.drow-section{
+    /* height: 100%; */
+    display:flex;
+    background-color:#e3e3e3;
+    flex-direction: column;
+    align-items: flex-end;
+
+}
+
+.line1{
+    width: 100%;
+}
+
+
+.editor-container{
+
+    display: flex;
+    justify-content: center;
+    background-color:#e3e3e3;
+    height:68.5vh;
+    justify-content: space-evenly;
+    align-items: center;
+}
+#my-canvas{
+    /* margin-top: 5%; */
+    /* border: 1px solid; */
+    display:inline-block;
+    /* margin-top: 2%;
+    margin-left: 4%;
+    margin-right: 8%; */
+    width: 400px;
+    height: 400px;
+    cursor: -webkit-grab;
+}
+
+.add-line-btn{
+    width: 45px;
+    height: 45px;
+    margin: 4.5px 9px 0 9.5px;
+    padding: 5.5px 5.2px 4.9px 5.2px;
+    border-radius: 6px;
+    background-color: #fff;
+    border: 0px;
+    cursor: pointer;
+}
+
+select{
+    width: 60%;
+    height: 100%;
+    /* margin-top: 3%; */
+    border-radius: 6px;
+    background-color: #fff;
+
+}
+
+input#color{
+    width: 100%;
+    height: 50%;
+    margin: 0px;
+    padding: 0px;
+    
+}
+
+.btn-img.color{
+    width: 80%;
+    height: 40%;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
+.btn{
+    width: 45px;
+    height: 45px;
+    margin: 4.5px 9px 0 9.5px;;
+    border-radius: 6px;
+    background-color: #fff;
+    border: 0px;
+    cursor: pointer;
+    
+}
+
+.btn-img{
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.change-line-btn{
+    width: 45px;
+    height: 45px;
+    margin: 4.5px 9.5px 0 39.5px;
+    padding: 5.3px 5px 5.3px 5.5px;
+    border-radius: 6px;
+    background-color: #fff;
+    border: 0px;
+    cursor: pointer;
+}
+
+
+
+.line2{
+    margin-top: 1%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.line3{
+    margin-top: 8%;
+    display: flex;
+    width: 100%;
+}
+
+.line4{
+    margin-top: 2%;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.txt-box{
+    width: 100%;
+    height: 45px;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+.txt-input{
+    width: 265px;
+    height: 37px;
+    margin: 6.4px 0.2px 0 9.8px;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: #000;
+    border: white;
+    font-family: 'Baloo Bhaijaan 2', cursive;
+}
+
+.line5{
+    width: 100%;
+    height: 100%;
+    margin-top: 7%;
+    border-radius: 6px;
+    background-color: #fff;
+    border: 0px;
+}
+
+.btn-editor{
+    width: 32%;
+    height: 10%;
+    margin-top: 10%;
+    margin-bottom: 0%;
+    border-radius: 6px;
+    background-color: #ff7f00;
+    border: 0px;
+    color: white;
+    font-family: 'Baloo Bhaijaan 2', cursive;
+    font-size: 3vh;
+}
+
+.btn-create{
+    font-size: 15px;
+    width: fit-content;
+    height: 45px;
+}
+
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.btn.fill-color{
+    margin: 0px;
+}
+
+.btn.color{
+    margin: 0px;
+    font: caption;
+    font-weight: bold;
+}
+
+.footer{
+    width: 100%;
+    height: 24vh;
+    background-color: #ff7f00;
+    display: flex;
+    color: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+}
+
+span{
+    margin: 0px;
+    font: caption;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.emojis-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: fit-content;
+}
+
+.emoj{
+    cursor: pointer;
+}
+
+.btn-save{
+    height: 45px;
+    width: fit-content;
+    
+}
+
+@media only screen and (max-width:768px){
+    .editor-container{
+        flex-direction: column;
+        height: 140vh;
+        justify-content: flex-start
+    }
+    #my-canvas{
+        margin-top: 3%;
+        width: 100%;
+        height: 95%; 
+    }
+    
+}
